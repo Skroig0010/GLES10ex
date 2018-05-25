@@ -1,5 +1,8 @@
 package jp.ac.titech.itpro.sdl.gles10ex;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +20,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     private Cube cube;
     private Pyramid pyramid;
 
+    public static MainActivity instance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        instance = this;
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);

@@ -41,18 +41,60 @@ public class Cube implements SimpleRenderer.Obj {
             1, 1, 1
     };
 
+    private final static float[] TEX_COORDS = {
+            // left
+            0, 0,
+            0, 1,
+            1, 0,
+            1, 1,
+            // right
+            0, 0,
+            0, 1,
+            1, 0,
+            1, 1,
+            // bottom
+            0, 0,
+            0, 1,
+            1, 0,
+            1, 1,
+            // top
+            0, 0,
+            0, 1,
+            1, 0,
+            1, 1,
+            // back
+            0, 0,
+            0, 1,
+            1, 0,
+            1, 1,
+            // front
+            0, 0,
+            0, 1,
+            1, 0,
+            1, 1,
+    };
+
     private final FloatBuffer vbuf;
+    private final FloatBuffer tbuf;
 
     Cube() {
         vbuf = ByteBuffer.allocateDirect(VERTICES.length * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
         vbuf.put(VERTICES);
         vbuf.position(0);
+        tbuf = ByteBuffer.allocateDirect(TEX_COORDS.length * 4)
+                .order(ByteOrder.nativeOrder()).asFloatBuffer();
+        tbuf.put(TEX_COORDS);
+        tbuf.position(0);
     }
 
-    public void draw(GL10 gl) {
+    public void draw(GL10 gl, int texture) {
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vbuf);
+        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
+        gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, tbuf);
 
         // left
         gl.glNormal3f(-1, 0, 0);
